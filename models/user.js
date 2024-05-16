@@ -3,7 +3,8 @@ const sequelize = require('../helpers/connect-to-database').sequelize;
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const salt = bcrypt.genSaltSync(saltRounds);
-const Card = require('./card');
+const axios = require('axios'); // for making HTTP requests to Backend B
+
 
 class User extends Model { }
 User.init(
@@ -41,6 +42,15 @@ User.addHook("beforeSave", async (user, options) => {
 User.prototype.checkPassword = function (password) {
     return bcrypt.compareSync(password, this.password);
 };
-User.hasMany(Card, { as: 'cards' })
 
-module.exports = User
+// Define a method to fetch cards for a user from Backend B
+User.prototype.getCards = async function () {
+    try {
+        const response = await axios.get(`${process.env.BackendB_URL}/cards/${this.id}`);
+        return response.data;
+    } catch (error) {
+        throw new Error('Error fetching cards from Backend B');
+    }
+};
+
+module.exports = User;

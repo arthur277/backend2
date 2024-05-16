@@ -22,9 +22,6 @@ app.use(userRoutes);
 const authRoutes = require("./routes/auth-routes");
 app.use(authRoutes);
 
-/* --- CARD ROUTES ----*/
-const cardRoutes = require("./routes/card-routes");
-app.use(cardRoutes);
 
 app.listen(process.env.PORT, () => {
     console.log(`Server running at ${process.env.PORT}`)

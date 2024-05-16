@@ -18,6 +18,7 @@ async function login(req, res) {
             { expiresIn: 86400 }
         );
         return res.json({
+            userId:user.id,
             token: jwtToken,
             expiresIn: 86400,
         });
