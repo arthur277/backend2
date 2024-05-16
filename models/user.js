@@ -43,14 +43,6 @@ User.prototype.checkPassword = function (password) {
     return bcrypt.compareSync(password, this.password);
 };
 
-// Define a method to fetch cards for a user from Backend B
-User.prototype.getCards = async function () {
-    try {
-        const response = await axios.get(`${process.env.BackendB_URL}/cards/${this.id}`);
-        return response.data;
-    } catch (error) {
-        throw new Error('Error fetching cards from Backend B');
-    }
-};
+
 
 module.exports = User;
