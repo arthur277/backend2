@@ -44,30 +44,9 @@ async function getUserByEmail(email) {
 
 
 
-async function getUserCards(req, res) {
-    const userId = req.params.userId;
-
-    try {
-        // Find user by userId
-        const user = await User.findByPk(userId);
-
-        if (!user) {
-            return res.status(404).json({ message: "User not found" });
-        }
-
-        // Call getCards method to fetch user's cards
-        const cards = await user.getCards();
-        
-        return res.status(200).json(cards);
-    } catch (error) {
-        console.error("Error in getUserCards:", error);
-        return res.status(500).json({ message: "Error in retrieving user's cards" });
-    }
-}
 
 
 
 
 
-
-module.exports = ({ registerUser, getAllUsers, getUserByEmail,getUserCards })
+module.exports = ({ registerUser, getAllUsers, getUserByEmail, getUserCards })
